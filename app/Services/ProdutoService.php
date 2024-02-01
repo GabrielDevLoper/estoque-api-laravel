@@ -7,14 +7,12 @@ use Illuminate\Http\Request;
 
 class ProdutoService
 {
-
     public function index()
     {
-        $produtos = Produto::query()->get()->all();
+        $produtos = Produto::query()->with('categoria')->get()->all();
 
-        return response()->json(['produtos' => $produtos]);
+        return response()->json($produtos);
     }
-
 
     public function create(Request $request)
     {
@@ -25,14 +23,14 @@ class ProdutoService
             'id_categoria' => $request->id_categoria
         ]);
 
-        return response()->json(['produto' => $produto, 'message' => 'Produto adicionado com sucesso!']);
+        return response()->json($produto);
     }
 
     public function show(int $id_produto)
     {
         $produto = Produto::query()->find($id_produto);
 
-        return response()->json(['produto' => $produto]);
+        return response()->json( $produto);
     }
 
     public function edit(Request $request, int $id_produto)
@@ -44,7 +42,7 @@ class ProdutoService
             'id_categoria' => $request->id_categoria
         ]);
 
-        return response()->json(['produto' => $produto, 'message' => 'Produto atualizado com sucesso!']);
+        return response()->json($produto);
     }
 
 

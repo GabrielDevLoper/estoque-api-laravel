@@ -14,4 +14,15 @@ class MovimentacaoController extends Controller
         $this->movimentacaoService = $movimentacaoService;
     }
 
+    public function index()
+    {
+        return $this->movimentacaoService->index();
+    }
+
+    public function create(Request $request)
+    {
+        return $this->movimentacaoService->create($request);
+    }
+
+
 }
