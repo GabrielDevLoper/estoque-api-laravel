@@ -17,6 +17,7 @@ return new class extends Migration
             $table->double('preco');
             $table->integer('quantidade_em_estoque');
             $table->unsignedBigInteger('id_categoria');
+            $table->boolean('status')->default(true);
 
             $table->foreign('id_categoria')->references('id')->on('categorias');
             $table->timestamps();

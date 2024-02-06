@@ -23,4 +23,27 @@ Route::prefix('tipos_movimentacao')->controller(\App\Http\Controllers\TipoMovime
     Route::delete('/deletar/{id_tipo_movimentacao}', 'delete')->name('tipo.movimentacao.deletar');
 });
 
+Route::prefix('categorias')->controller(\App\Http\Controllers\CategoriaController::class)->group(function () {
+    Route::get('/listar', 'index')->name('categoria.listar');
+    Route::post('/salvar', 'create')->name('categoria.salvar');
+    Route::put('/editar/{id_categoria}', 'edit')->name('categoria.atualizar');
+    Route::delete('/deletar/{id_categoria}', 'delete')->name('categoria.deletar');
+});
+
+Route::prefix('produtos')->controller(\App\Http\Controllers\ProdutoController::class)->group(function () {
+    Route::get('/listar', 'index')->name('produto.listar');
+    Route::post('/salvar', 'create')->name('produto.salvar');
+    Route::put('/editar/{id_produto}', 'edit')->name('produto.atualizar');
+    Route::delete('/deletar/{id_produto}', 'delete')->name('produto.deletar');
+});
+
+
+Route::prefix('movimentacoes')->controller(\App\Http\Controllers\MovimentacaoController::class)->group(function () {
+    Route::get('/listar', 'index');
+    Route::post('/salvar/{id_produto}', 'create')->name('movimentacao.produto.salvar');
+    Route::put('/editar/{id_movimentacao}', 'edit');
+    Route::delete('/deletar/{id_movimentacao}', 'delete');
+    Route::get('/buscar/{id_movimentacao}', 'show');
+});
+
 

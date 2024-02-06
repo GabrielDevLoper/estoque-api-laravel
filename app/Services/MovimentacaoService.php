@@ -19,21 +19,21 @@ class MovimentacaoService
         return response()->json($movimentacoes);
     }
 
-    public function create(Request $request)
+    public function create(Request $request, int $id_produto)
     {
-        if($this->verificaQuantidadeProdutoEmEstoque($request->id_produto, $request->id_tipo_movimentacao, $request->quantidade)){
+        if($this->verificaQuantidadeProdutoEmEstoque($id_produto, $request->id_tipo_movimentacao, $request->quantidade)){
             return response()->json(['message' => 'quantidade do produto menor que a quantidade da saida'], 400);
         }
 
         $movimentacao = Movimentacao::create([
-            'id_produto' => $request->id_produto,
+            'id_produto' => $id_produto,
             'id_tipo_movimentacao' => $request->id_tipo_movimentacao,
             'quantidade' => $request->quantidade,
         ]);
 
         $this->movimentandoQuantidadeProduto($movimentacao->id_produto, $movimentacao->id_tipo_movimentacao, $movimentacao->quantidade);
 
-        return response()->json($movimentacao);
+        return redirect()->route('produto.listar');
     }
 
     public function show(int $id_movimentacao)

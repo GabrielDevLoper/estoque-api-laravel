@@ -19,9 +19,9 @@ class MovimentacaoController extends Controller
         return $this->movimentacaoService->index();
     }
 
-    public function create(Request $request)
+    public function create(Request $request, int $id_produto)
     {
-        return $this->movimentacaoService->create($request);
+        return $this->movimentacaoService->create($request, $id_produto);
     }
 
 

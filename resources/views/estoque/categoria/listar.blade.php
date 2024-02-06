@@ -25,7 +25,7 @@
                 </div><!--end col-->
 
                 <div class="lg:col-span-2 ltr:lg:text-right rtl:lg:text-left xl:col-span-2 xl:col-start-11">
-                    <button data-modal-target="tipoMovimentacaoModal" type="button"
+                    <button data-modal-target="categoriaModal" type="button"
                             class="text-white btn bg-custom-500 border-custom-500 hover:text-white hover:bg-custom-600 hover:border-custom-600 focus:text-white focus:bg-custom-600 focus:border-custom-600 focus:ring focus:ring-custom-100 active:text-white active:bg-custom-600 active:border-custom-600 active:ring active:ring-custom-100 dark:ring-custom-400/20"><i
                             data-lucide="plus" class="inline-block w-4 h-4"></i> <span class="align-middle">Novo</span></button>
                 </div>
@@ -45,13 +45,13 @@
                     </tr>
                     </thead>
                     <tbody class="list" >
-                    @foreach($tipos_movimentacao as $index => $tipo_movimentacao)
+                    @foreach($categorias as $index => $categoria)
                         <tr>
                             <td class="px-3.5 py-2.5 border-y border-slate-200 dark:border-zink-500">
-                                {{$tipo_movimentacao->id}}
+                                {{$categoria->id}}
                             </td>
                             <td class="px-3.5 py-2.5 border-y border-slate-200 dark:border-zink-500 product_name">
-                                {{$tipo_movimentacao->nome}}
+                                {{$categoria->nome}}
                             </td>
 
                             <td class="px-3.5 py-2.5 border-y border-slate-200 dark:border-zink-500">
@@ -59,7 +59,7 @@
                                     <a class="flex items-center justify-center w-8 h-8 transition-all duration-200 ease-linear rounded-md bg-slate-100 text-slate-500 hover:text-custom-500 hover:bg-custom-100 dark:bg-zink-600 dark:text-zink-200 dark:hover:bg-custom-500/20 dark:hover:text-custom-500"
                                        href="{{ url('pages-account') }}"><i data-lucide="eye"
                                                                             class="inline-block w-3 h-3"></i> </a>
-                                    <a href="#!" data-modal-target="tipoMovimentacaoModalEdita{{$index}}"
+                                    <a href="#!" data-modal-target="modalEditar{{$index}}"
                                        class="flex items-center justify-center w-8 h-8 transition-all duration-200 ease-linear rounded-md edit-item-btn bg-slate-100 text-slate-500 hover:text-custom-500 hover:bg-custom-100 dark:bg-zink-600 dark:text-zink-200 dark:hover:bg-custom-500/20 dark:hover:text-custom-500"><i
                                             data-lucide="pencil" class="w-4 h-4"></i></a>
                                     <a href="#!" data-modal-target="deleteModal{{$index}}"
@@ -80,7 +80,7 @@
                                     </div>
                                     <img src="{{ URL::asset('build/images/delete.png') }}" alt="" class="block h-12 mx-auto">
                                     <div class="mt-5 text-center">
-                                        {{ Form::open(['route' => ['tipo.movimentacao.deletar', $tipo_movimentacao->id], 'method' => 'delete']) }}
+                                        {{ Form::open(['route' => ['categoria.deletar', $categoria->id], 'method' => 'delete']) }}
                                         <h5 class="mb-1">Tem certeza?</h5>
                                         <p class="text-slate-500 dark:text-zink-200">Tem certeza de que deseja excluir este registro?</p>
                                         <div class="flex justify-center gap-2 mt-6">
@@ -96,27 +96,27 @@
                             </div>
                         </div>
 
-                        <div id="tipoMovimentacaoModalEdita{{$index}}" modal-center
+                        <div id="modalEditar{{$index}}" modal-center
                              class="fixed flex flex-col hidden transition-all duration-300 ease-in-out left-2/4 z-drawer -translate-x-2/4 -translate-y-2/4 show ">
                             <div class="w-screen md:w-[30rem] bg-white shadow rounded-md dark:bg-zink-600">
                                 <div class="flex items-center justify-between p-4 border-b dark:border-zink-300/20">
                                     <h5 class="text-16">Editar Tipo Movimentação</h5>
-                                    <button data-modal-close="tipoMovimentacaoModalEdita{{$index}}"
+                                    <button data-modal-close="modalEditar{{$index}}"
                                             class="transition-all duration-200 ease-linear text-slate-400 hover:text-red-500"><i data-lucide="x"
                                                                                                                                  class="w-5 h-5"></i></button>
                                 </div>
                                 <div class="max-h-[calc(theme('height.screen')_-_180px)] p-4 overflow-y-auto">
-                                    {{ Form::open(['route' => ['tipo.movimentacao.atualizar', $tipo_movimentacao->id], 'method' => 'put']) }}
+                                    {{ Form::open(['route' => ['categoria.atualizar', $categoria->id], 'method' => 'put']) }}
 
                                     <div class="mb-3">
                                         <label for="nome" class="inline-block mb-2 text-base font-medium">Nome</label>
-                                        <input type="text" id="nome" name="nome" value="{{$tipo_movimentacao->nome}}"
+                                        <input type="text" id="nome" name="nome" value="{{$categoria->nome}}"
                                                class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200"
                                                placeholder="Insira o nome" required>
                                     </div>
 
                                     <div class="flex justify-end gap-2 mt-4">
-                                        <button type="reset" data-modal-close="tipoMovimentacaoModalEdita{{$index}}"
+                                        <button type="reset" data-modal-close="modalEditar{{$index}}"
                                                 class="text-red-500 transition-all duration-200 ease-linear bg-white border-white btn hover:text-red-600 focus:text-red-600 active:text-red-600 dark:bg-zink-500 dark:border-zink-500">Cancelar</button>
                                         <button type="submit"
                                                 class="text-white transition-all duration-200 ease-linear btn bg-custom-500 border-custom-500 hover:text-white hover:bg-custom-600 hover:border-custom-600 focus:text-white focus:bg-custom-600 focus:border-custom-600 focus:ring focus:ring-custom-100 active:text-white active:bg-custom-600 active:border-custom-600 active:ring active:ring-custom-100 dark:ring-custom-400/20">
@@ -169,17 +169,17 @@
 
 
 
-    <div id="tipoMovimentacaoModal" modal-center
+    <div id="categoriaModal" modal-center
          class="fixed flex flex-col hidden transition-all duration-300 ease-in-out left-2/4 z-drawer -translate-x-2/4 -translate-y-2/4 show ">
         <div class="w-screen md:w-[30rem] bg-white shadow rounded-md dark:bg-zink-600">
             <div class="flex items-center justify-between p-4 border-b dark:border-zink-300/20">
-                <h5 class="text-16">Adicionar Tipo Movimentação</h5>
-                <button data-modal-close="tipoMovimentacaoModal"
+                <h5 class="text-16">Adicionar Categoria</h5>
+                <button data-modal-close="categoriaModal"
                         class="transition-all duration-200 ease-linear text-slate-400 hover:text-red-500"><i data-lucide="x"
                                                                                                              class="w-5 h-5"></i></button>
             </div>
             <div class="max-h-[calc(theme('height.screen')_-_180px)] p-4 overflow-y-auto">
-                {{ Form::open(['route' => 'tipo.movimentacao.salvar', 'method' => 'post']) }}
+                {{ Form::open(['route' => 'categoria.salvar', 'method' => 'post']) }}
 
                     <div class="mb-3">
                         <label for="nome" class="inline-block mb-2 text-base font-medium">Nome</label>
@@ -189,7 +189,7 @@
                     </div>
 
                     <div class="flex justify-end gap-2 mt-4">
-                        <button type="reset" data-modal-close="tipoMovimentacaoModal"
+                        <button type="reset" data-modal-close="categoriaModal"
                                 class="text-red-500 transition-all duration-200 ease-linear bg-white border-white btn hover:text-red-600 focus:text-red-600 active:text-red-600 dark:bg-zink-500 dark:border-zink-500">Cancelar</button>
                         <button type="submit"
                                 class="text-white transition-all duration-200 ease-linear btn bg-custom-500 border-custom-500 hover:text-white hover:bg-custom-600 hover:border-custom-600 focus:text-white focus:bg-custom-600 focus:border-custom-600 focus:ring focus:ring-custom-100 active:text-white active:bg-custom-600 active:border-custom-600 active:ring active:ring-custom-100 dark:ring-custom-400/20">

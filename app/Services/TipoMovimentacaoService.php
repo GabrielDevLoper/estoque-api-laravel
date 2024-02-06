@@ -15,7 +15,7 @@ class TipoMovimentacaoService
     {
         $tipos_movimentacao = TipoMovimentacao::query()->get()->all();
 
-        return view('tipoMovimentacao.listar', compact('tipos_movimentacao'));
+        return view('estoque.tipoMovimentacao.listar', compact('tipos_movimentacao'));
     }
 
     public function create(Request $request)

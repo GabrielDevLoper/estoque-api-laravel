@@ -11,7 +11,7 @@ class CategoriaService
     {
         $categorias = Categoria::query()->get()->all();
 
-        return response()->json($categorias);
+        return view('estoque.categoria.listar', compact('categorias'));
     }
 
     public function create(Request $request)
@@ -20,7 +20,7 @@ class CategoriaService
             'nome' => $request->nome,
         ]);
 
-        return response()->json($categoria);
+        return redirect()->route('categoria.listar');
     }
 
     public function show(int $id_categoria)
@@ -36,7 +36,7 @@ class CategoriaService
             'nome' => $request->nome,
         ]);
 
-        return response()->json($categoria);
+        return redirect()->route('categoria.listar');
     }
 
 
@@ -44,7 +44,7 @@ class CategoriaService
     {
         Categoria::query()->find($id_categoria)->delete();
 
-        return response()->json(['message' => 'Categoria removida com sucesso!']);
+        return redirect()->route('categoria.listar');
     }
 
 }

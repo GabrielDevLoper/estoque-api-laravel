@@ -2,7 +2,9 @@
 
 namespace App\Services;
 
+use App\Models\Categoria;
 use App\Models\Produto;
+use App\Models\TipoMovimentacao;
 use Illuminate\Http\Request;
 
 class ProdutoService
@@ -10,20 +12,22 @@ class ProdutoService
     public function index()
     {
         $produtos = Produto::query()->with('categoria')->get()->all();
+        $categorias = Categoria::all();
+        $tiposMovimentacao = TipoMovimentacao::all();
 
-        return response()->json($produtos);
+        return view('estoque.produto.listar', compact('produtos', 'categorias', 'tiposMovimentacao'));
     }
 
     public function create(Request $request)
     {
-        $produto = Produto::create([
+        Produto::create([
             'nome' => $request->nome,
             'preco' => $request->preco,
             'quantidade_em_estoque' => $request->quantidade_em_estoque,
             'id_categoria' => $request->id_categoria
         ]);
 
-        return response()->json($produto);
+        return redirect()->route('produto.listar');
     }
 
     public function show(int $id_produto)
@@ -42,7 +46,7 @@ class ProdutoService
             'id_categoria' => $request->id_categoria
         ]);
 
-        return response()->json($produto);
+        return redirect()->route('produto.listar');
     }
 
 
@@ -50,7 +54,7 @@ class ProdutoService
     {
         Produto::query()->find($id_produto)->delete();
 
-        return response()->json(['message' => 'Produto removido com sucesso!']);
+        return redirect()->route('produto.listar');
     }
 
 }
