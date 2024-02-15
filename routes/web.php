@@ -15,6 +15,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::get("/index", [\App\Http\Controllers\RouteController::class, 'index'])->name('dashboard');
 Route::get("/", [\App\Http\Controllers\RouteController::class, 'login'])->name('login');
+Route::post("/autenticar", [\App\Http\Controllers\RouteController::class, 'authenticate'])->name('login.autenticar');
+
 
 Route::prefix('tipos_movimentacao')->controller(\App\Http\Controllers\TipoMovimentacaoController::class)->group(function () {
     Route::get('/listar', 'index')->name('tipo.movimentacao.listar');

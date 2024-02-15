@@ -12,5 +12,7 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         $this->call(TipoMovimentacaoSeeder::class);
+        $this->call(UsuarioSeeder::class);
+
     }
 }
